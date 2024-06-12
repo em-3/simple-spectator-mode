@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version "1.9.23"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("io.github.goooler.shadow") version "8.1.7"
+//    id("com.github.johnrengelman.shadow") version "8.1.1"
     id("java")
 }
 
@@ -25,4 +26,11 @@ kotlin {
 java {
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
+}
+
+tasks {
+    shadowJar {
+        minimize()
+        relocate("com.jeff_media.morepersistentdatatypes", "dev.em_3.simplespectatormode.morepersistentdatatypes")
+    }
 }
