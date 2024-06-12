@@ -1,0 +1,6 @@
+name: SimpleSpectatorMode
+version: 1.0.0-SNAPSHOT
+main: dev.em_3.simplespectatormode.SimpleSpectatorMode
+description: A plugin that allows non-opped players to access a limited version of spectator mode
+api-version: '1.20.6'
+bootstrapper: dev.em_3.simplespectatormode.SimpleSpectatorModeBootstrap

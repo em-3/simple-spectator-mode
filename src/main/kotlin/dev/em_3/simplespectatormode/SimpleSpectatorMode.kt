@@ -1,13 +1,15 @@
 package dev.em_3.simplespectatormode
 
-import org.bukkit.Bukkit
+import org.bukkit.NamespacedKey
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 
-class SimpleSpectatorMode : JavaPlugin(), Listener {
+object SimpleSpectatorMode : JavaPlugin(), Listener {
+
+    lateinit var COORDINATES_KEY: NamespacedKey
 
     override fun onEnable() {
-        Bukkit.getPluginManager().registerEvents(this, this);
+        COORDINATES_KEY = NamespacedKey(SimpleSpectatorMode, "safe-coordinates")
     }
 
 }
