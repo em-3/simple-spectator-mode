@@ -29,10 +29,10 @@ class CommandEventHandler : LifecycleEventHandler<ReloadableRegistrarEvent<Comma
                                 DataType.LOCATION
                             )
                         ) {
-                            //The player set their gamemode manually, just switch them back to survival
+                            //The player set their gamemode by other means, just switch them back to survival
                             player.gameMode = GameMode.SURVIVAL
 
-                            Command.SINGLE_SUCCESS
+                            return@executes Command.SINGLE_SUCCESS
                         }
 
                         //Retrieve the player's coordinates. The non-null assertion operator is safe in this case, as it is already confirmed the player has their coordinates set
@@ -53,6 +53,9 @@ class CommandEventHandler : LifecycleEventHandler<ReloadableRegistrarEvent<Comma
                         )
 
                         player.gameMode = GameMode.SPECTATOR
+                    } else {
+                        it.source.sender.sendMessage("Target must be in spectator or survival mode")
+                        return@executes 0
                     }
 
                     Command.SINGLE_SUCCESS
