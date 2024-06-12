@@ -13,12 +13,16 @@ class OutOfBoundsListener : Listener {
         val player = event.player
 
         //Ignore non-tracked players
-        if(player.gameMode != GameMode.SPECTATOR || !player.persistentDataContainer.has(SimpleSpectatorMode.COORDINATES_KEY, DataType.LOCATION)) return
+        if (player.gameMode != GameMode.SPECTATOR || !player.persistentDataContainer.has(
+                SimpleSpectatorMode.COORDINATES_KEY,
+                DataType.LOCATION
+            )
+        ) return
 
         val coordinates = player.persistentDataContainer.get(SimpleSpectatorMode.COORDINATES_KEY, DataType.LOCATION)!!
 
         //Check if the player has strayed over 35 blocks from their initial position
-        if(player.location.distance(coordinates) > 35) {
+        if (player.location.distance(coordinates) > 35) {
             //Reset the player back to their original position
             player.teleport(coordinates)
         }

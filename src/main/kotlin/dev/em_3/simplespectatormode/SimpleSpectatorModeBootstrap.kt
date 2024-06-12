@@ -8,7 +8,7 @@ import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents
 class SimpleSpectatorModeBootstrap : PluginBootstrap {
 
     override fun bootstrap(context: BootstrapContext) {
-         val manager = context.lifecycleManager
+        val manager = context.lifecycleManager
         manager.registerEventHandler(LifecycleEvents.COMMANDS, CommandEventHandler())
     }
 
