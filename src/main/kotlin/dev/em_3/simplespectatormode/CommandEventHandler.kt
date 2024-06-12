@@ -1,5 +1,6 @@
 package dev.em_3.simplespectatormode
 
+import com.jeff_media.morepersistentdatatypes.DataType
 import com.mojang.brigadier.Command
 import io.papermc.paper.command.brigadier.Commands
 import io.papermc.paper.plugin.lifecycle.event.handler.LifecycleEventHandler
@@ -23,7 +24,7 @@ class CommandEventHandler : LifecycleEventHandler<ReloadableRegistrarEvent<Comma
                     }
 
                     if(player.gameMode == GameMode.SPECTATOR) {
-                        if(!player.persistentDataContainer.has(SimpleSpectatorMode.COORDINATES_KEY)) {
+                        if(!player.persistentDataContainer.has(SimpleSpectatorMode.COORDINATES_KEY, DataType.LOCATION)) {
                             //The player set their gamemode manually, just switch them back to survival
                             player.gameMode = GameMode.SURVIVAL
 
@@ -31,16 +32,16 @@ class CommandEventHandler : LifecycleEventHandler<ReloadableRegistrarEvent<Comma
                         }
 
                         //Retrieve the player's coordinates. The non-null assertion operator is safe in this case, as it is already confirmed the player has their coordinates set
-                        val coordinates = player.persistentDataContainer.get(SimpleSpectatorMode.COORDINATES_KEY, VectorDataType())!!
+                        val coordinates = player.persistentDataContainer.get(SimpleSpectatorMode.COORDINATES_KEY, DataType.LOCATION)!!
 
                         //Set the player to their stored coordinates and switch them back to survival
-                        player.location.set(coordinates.x, coordinates.y, coordinates.z)
+                        player.teleport(coordinates)
                         player.gameMode = GameMode.SURVIVAL
 
                         player.persistentDataContainer.remove(SimpleSpectatorMode.COORDINATES_KEY)
                     }else if(player.gameMode == GameMode.SURVIVAL) {
                         //Store the player's coordinates and switch them to spectator mode
-                        player.persistentDataContainer.set(SimpleSpectatorMode.COORDINATES_KEY, VectorDataType(), player.location.toVector())
+                        player.persistentDataContainer.set(SimpleSpectatorMode.COORDINATES_KEY, DataType.LOCATION, player.location)
 
                         player.gameMode = GameMode.SPECTATOR
                     }
